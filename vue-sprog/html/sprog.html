@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="https://cdn.staticfile.org/vue/2.7.0/vue.min.js" ></script>
+</head>
+<body>
+
+    <div id="app">
+        <!-- 属性使用方法 -->
+        <p>{{5 + 5}}</p>
+        <p>{{ok ? 'YES' : 'NO'}}</p>
+        <p>{{message.split('').reverse().join('')}}</p>
+        <div v-bind:id="'list-' + id">菜鸟教程</div>
+    </div>
+    <script>
+        new Vue({
+            el:"#app",
+            // 属性
+            data: {
+                ok : true,
+                message : 'RUNOOB',
+                id : 1
+            },
+        });
+    </script>
+</body>
+</html>

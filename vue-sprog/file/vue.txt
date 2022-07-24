@@ -1,0 +1,259 @@
+Webpack 入门教程：http://www.runoob.com/w3cnote/webpack-tutorial.html
+
+官方文档：http://vuejs.org/v2/guide/syntax.html
+
+中文文档: https://cn.vuejs.org/v2/guide/syntax.html
+
+
+1.什么是Vue
+     Vue 是一个用于构建用户界面的渐进式的 JavaScript 框架。它建立在标准 HTML、CSS 和 JavaScript 之上，并提供了一个声明性和基于组件的编程模型，可帮助您有效地开发简单或复杂的用户界面。
+
+2.安装方式
+    2.1 使用 <script>标签引入
+    2.2 使用CDN方法， 同样使用 <script>标签引入
+        （
+            Staticfile CDN（国内）：https://cdn.staticfile.org/vue/2.2.2/vue.min.js
+            unpkg：https://cdn.staticfile.org/vue/2.7.0/vue.min.js
+            cdnjs：https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.8/vue.min.js
+        ）
+    2.3 NPM方法
+        命令行工具
+            # 全局安装 vue-cli
+            $ cnpm install --global vue-cli
+            # 创建一个基于 webpack 模板的新项目
+            $ vue init webpack my-project
+            # 这里需要进行一些配置，默认回车即可
+            This will install Vue 2.x version of the template.
+
+            For Vue 1.x use: vue init webpack#1.0 my-project
+
+            ? Project name my-project
+            ? Project description A Vue.js project
+            ? Author runoob <test@runoob.com>
+            ? Vue build standalone
+            ? Use ESLint to lint your code? Yes
+            ? Pick an ESLint preset Standard
+            ? Setup unit tests with Karma + Mocha? Yes
+            ? Setup e2e tests with Nightwatch? Yes
+
+               vue-cli · Generated "my-project".
+
+               To get started:
+
+                 cd my-project
+                 npm install
+                 npm run dev
+
+               Documentation can be found at https://vuejs-templates.github.io/webpack
+            进入项目，安装并运行：
+
+            $ cd my-project
+            $ cnpm install
+            $ cnpm run dev
+             DONE  Compiled successfully in 4388ms
+
+            > Listening at http://localhost:8080
+
+        Vue 项目打包
+            npm run build
+
+            执行完成后，会在 Vue 项目下生成一个 dist 目录，一般包含 index.html 文件及 static 目录，static 目录包含了静态文件 js、css 以及图片目录 images。
+
+            如果直接双击 index.html 打开浏览器，页面可能是空白了，想要正常显示，可以修改 index.html 文件中 js、css 文件的路径。
+
+            例如我们打开 dist/index.html 文件看到路径是绝对路径：
+
+            <link href=/static/css/app.33da80d69744798940b135da93bc7b98.css rel=stylesheet>
+            <script type=text/javascript src=/static/js/app.717bb358ddc19e181140.js></script>
+            我们把 js、css 路径修改为相对路径：
+
+            <link href=static/css/app.33da80d69744798940b135da93bc7b98.css rel=stylesheet>
+            <script type=text/javascript src=static/js/app.717bb358ddc19e181140.js></script>
+            这样直接双击 dist/index.html 文件就可以在浏览器中看到效果了。
+
+3.Vue.js 目录结构
+    目录解析
+    目录/文件	                说明
+    build	                    项目构建(webpack)相关代码
+    config	                    配置目录，包括端口号等。我们初学可以使用默认的。
+    node_modules	            npm 加载的项目依赖模块
+    src                         这里是我们要开发的目录，基本上要做的事情都在这个目录里。里面包含了几个目录及文件：
+                                assets: 放置一些图片，如logo等。
+                                components: 目录里面放了一个组件文件，可以不用。
+                                App.vue: 项目入口文件，我们也可以直接将组件写这里，而不使用 components 目录。
+                                main.js: 项目的核心文件。
+    static	                    静态资源目录，如图片、字体等。
+    test	                    初始测试目录，可删除
+    .xxxx文件	                这些是一些配置文件，包括语法配置，git配置等。
+    index.html	                首页入口文件，你可以添加一些 meta 信息或统计代码啥的。
+    package.json	            项目配置文件。
+    README.md	                项目的说明文档，markdown 格式
+
+
+4.vue.js起步
+    代码:
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <script type="text/javascript" src="https://cdn.staticfile.org/vue/2.7.0/vue.min.js" ></script>
+    </head>
+    <body>
+
+        <div id="app">
+            <!-- 属性使用方法 -->
+            <p>{{message}}</p>
+            <!-- 函数使用方式 -->
+            <p>{{details()}}</p>
+
+        </div>
+        <script>
+            new Vue({
+                el:"#app",
+                // 属性
+                data:{
+                    message:"Hello Vue"
+                },
+                // 行为
+                methods: {
+                    details: function () {
+                        return  this.message + "学的不仅是技术，更是梦想";
+                    }
+                }
+
+            });
+        </script>
+    </body>
+    </html>
+
+
+
+    代码：
+        <div id = "vue_det">
+            <h1>site : {{site}}</h1>
+            <h1>url : {{url}}</h1>
+            <h1>{{details()}}</h1>
+        </div>
+        <script type="text/javascript">
+            var vm = new Vue({
+                el: '#vue_det',
+                data: {
+                    site: "菜鸟教程",
+                    url: "www.runoob.com",
+                    alexa: "10000"
+                },
+                methods: {
+                    details: function() {
+                        return  this.site + " - 学的不仅是技术，更是梦想！";
+                    }
+                }
+            })
+        </script>
+
+    在 Vue 构造器中有一个el 参数，它是 DOM 元素中的 id
+    接下来的改动全部在以上指定的 div 内，div 外部不受影响。
+
+    接下来我们看看如何定义数据对象。
+
+    data 用于定义属性，实例中有三个属性分别为：site、url、alexa。
+
+    methods 用于定义的函数，可以通过 return 来返回函数值。
+
+    {{ }} 用于输出对象属性和函数返回值。
+
+    当一个 Vue 实例被创建时，它向 Vue 的响应式系统中加入了其 data 对象中能找到的所有的属性。当这些属性的值发生改变时，html 视图将也会产生相应的变化。
+
+
+
+
+
+
+    除了数据属性，Vue 实例还提供了一些有用的实例属性与方法。它们都有前缀 $，以便与用户定义的属性区分开来  vm.$data\vm.$el
+
+
+5.Vue.js 模板语法
+    Vue.js 使用了基于 HTML 的模板语法，允许开发者声明式地将 DOM 绑定至底层 Vue 实例的数据。
+
+    Vue.js 的核心是一个允许你采用简洁的模板语法来声明式的将数据渲染进 DOM 的系统。
+
+    结合响应系统，在应用状态改变时， Vue 能够智能地计算出重新渲染组件的最小代价并应用到 DOM 操作上。
+
+
+    插值
+        文本
+            数据绑定最常见的形式就是使用{{...}}的文本插值
+
+
+        html
+            使用 v-html 指令用于输出 html 代码
+            实例：
+                <div v-html="message"></div>
+
+        属性
+            html属性中的值应使用 v-bind 指令
+            实例：
+                <!DOCTYPE html>
+                <html>
+                <head>
+                <meta charset="utf-8">
+                <title>Vue 测试实例 - 菜鸟教程(runoob.com)</title>
+                </head>
+                <style>
+                    .class1{
+                        background: #444;
+                        color: #eee;
+                    }
+                </style>
+                <body>
+                    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+
+                    <div id="app">
+                        <label for="r1">修改颜色</label><input type="checkbox" v-model="use" id="r1">
+                        <br><br>
+                        <div v-bind:class="{'class1': use}">
+                            v-bind:class 指令
+                        </div>
+                    </div>
+
+                    <script>
+                        new Vue({
+                            el: '#app',
+                            data:{
+                                use: false
+                            }
+                        });
+                    </script>
+                </body>
+                </html>
+
+        表达式
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <title>Title</title>
+                <script type="text/javascript" src="https://cdn.staticfile.org/vue/2.7.0/vue.min.js" ></script>
+            </head>
+            <body>
+
+                <div id="app">
+                    <!-- 属性使用方法 -->
+                    <p>{{5 + 5}}</p>
+                    <p>{{ok ? 'YES' : 'NO'}}</p>
+                    <p>{{message.split('').reverse().join('')}}</p>
+                    <div v-bind:id="'list-' + id">菜鸟教程</div>
+                </div>
+                <script>
+                    new Vue({
+                        el:"#app",
+                        // 属性
+                        data: {
+                            ok : true,
+                            message : 'RUNOOB',
+                            id : 1
+                        },
+                    });
+                </script>
+            </body>
+            </html>
