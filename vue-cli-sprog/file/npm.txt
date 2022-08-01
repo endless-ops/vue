@@ -1,0 +1,37 @@
+1. NPM的全称是Node Package Manager，是一个NodeJS包管理和分发工具，已经成为了非官方的发布Node模块（包）的标准
+2. Node.js 安装包自带 npm，无须独立安装。npm是一个包含众多JS包的管理工具，通过npm命令可以安装很多JS插件。
+3. 使用npm安装vue-cli脚手架：
+    npm install -g @vue/cli   ## -g 表示全局安装，指 在本地任何地方打开命令行工具都可以调用指责个安装包；@ 表示最新的版本
+
+    ## -S 表示安装到生成环境的依赖， -D 表示是安装到开发环境的依赖
+    其余的命令可以参考文档：https://www.npmjs.com
+
+    ## npm 使用时会很慢，原因它不是国内的，可以使用 cnpm 来代替。 cnpm 是淘宝的一个npm镜像，安装命令：
+    npm install -g cnpm --registry=https://registry.npm.taobao.org
+
+    查看版本的命令：
+        C:\Users\MENGDEFANG>node -v
+        v16.13.1
+
+        C:\Users\MENGDEFANG>vue --version
+        @vue/cli 4.5.13
+
+        C:\Users\MENGDEFANG>npm -v
+        8.1.2
+
+
+3. 脚手架的使用
+
+    运行 Vue-CLI 的图形化界面
+        vue ui
+
+    在 图形化界面 中 点击 ”创建“，
+    选择一个合适的文件夹，单击 ”在此创建新项目“ 按钮，运行 Vue-CLI 配置
+    首先，配置 ”详情“ 界面，给项目起一个名字；然后，在”包管理器“ 中选择 npm，有经验的用户也可以选择 yarn；最后，选择”初始化git仓库“（可选）
+    接下来，配置 ”预设“ 界面，因为默认配置无法进行自定义修改，（可选），若选择非默认配置，可以在 ”功能“ 界面选择需要的包；
+    单击 ”创建“ 按钮，系统会提示 是否保存预设，之后就是等待 项目的创建与依赖的安装。
+
+    启动项目： 进入项目所在文件夹，运行命令： npm run serve
+
+
+
